@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>The Compounding Gap</title>
+
+    <link
+      rel="stylesheet"
+      href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.1/chart.umd.min.js"></script>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <div class="language-switcher">
+        <button data-lang="zhCN">简体</button>
+        <button data-lang="zhTW">繁體</button>
+        <button
+          data-lang="en"
+          class="active">
+          ENG
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p
+          class="eyebrow"
+          data-i18n="eyebrow">
+          INTERACTIVE MODEL
+        </p>
+
+        <h1 data-i18n="title">The Compounding Gap</h1>
+
+        <p
+          class="subtitle"
+          data-i18n="subtitle">
+          How small differences in opportunity can create larger inequalities over time.
+        </p>
+
+        <p
+          class="intro"
+          data-i18n="intro">
+          This interactive model explores how repeated differences in promotion opportunity can affect representation
+          and salary growth across a career.
+        </p>
+
+        <p
+          class="intro"
+          data-i18n="projectTip"
+          style="font-size: 14px; color: #909399">
+          The project uses a simplified model to show the cumulative impact of differences in promotion opportunities.
+          It is intended to help explain the mechanism, rather than predict outcomes in real companies or directly prove
+          discrimination.
+        </p>
+      </section>
+
+      <section class="research-section">
+        <p
+          class="eyebrow"
+          data-i18n="researchEyebrow">
+          RESEARCH BASIS
+        </p>
+
+        <h2 data-i18n="researchTitle">Why model a small repeated gap?</h2>
+
+        <p data-i18n="researchParagraphOne">
+          Research on gender inequality at work suggests that disadvantages can accumulate across multiple stages of an
+          employee's career, including evaluation, promotion and compensation.
+        </p>
+
+        <p data-i18n="researchParagraphTwo">
+          Studies have also documented gender differences in promotion outcomes in particular workplace samples.
+          However, the size of these differences varies across occupations, organizations and populations.
+        </p>
+
+        <div class="assumption-note">
+          <strong data-i18n="assumptionTitle"> About the numbers in this model </strong>
+
+          <p data-i18n="assumptionText">
+            The default 50% and 45% promotion probabilities are illustrative, not estimates of the true promotion rates
+            of men and women. They are chosen to demonstrate how a small repeated difference can compound across several
+            stages. All parameters can be adjusted.
+          </p>
+        </div>
+      </section>
+
+      <!-- 01 Promotion Pipeline -->
+      <section class="model-section promotion-section">
+        <div class="section-heading">
+          <span class="section-number">01</span>
+
+          <div>
+            <h2 data-i18n="promotionTitle">Promotion Pipeline</h2>
+
+            <p data-i18n="promotionDescription">
+              Adjust the promotion probabilities and see how the number of people in each group changes across multiple
+              career stages.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mathematical model -->
+        <div class="formula-card">
+          <div class="formula-block">
+            <span
+              class="formula-label"
+              data-i18n="modelFormulaTitle">
+              Mathematical model
+            </span>
+
+            <p class="formula">N<sub>k</sub> = N<sub>0</sub>p<sup>k</sup></p>
+          </div>
+
+          <div class="model-rationale">
+            <h3 data-i18n="modelRationaleTitle">Why this model?</h3>
+
+            <p data-i18n="promotionModelRationale">
+              Let <span class="math-inline">X<sub>k</sub></span> represent the number of people who reach stage
+              <span class="math-inline">k</span>. The model uses the expected headcount
+              <span class="math-inline">N<sub>k</sub> = E[X<sub>k</sub>]</span>. If each person has the same promotion
+              probability <span class="math-inline">p</span> at every stage, then
+              <span class="math-inline">N<sub>k+1</sub> = pN<sub>k</sub></span
+              >. Starting from 1,000 people, repeating this transition gives
+              <span class="math-inline">N<sub>k</sub> = 1000p<sup>k</sup></span
+              >. These values are expected outcomes under the model, not exact predictions of how many people will be
+              promoted in a real organization.
+            </p>
+          </div>
+
+          <div class="model-note">
+            <h3 data-i18n="symbolsTitle">Symbols</h3>
+
+            <div class="symbol-list">
+              <div>
+                <span class="symbol"> N<sub>0</sub> </span>
+
+                <span data-i18n="symbolN0"> Starting population </span>
+              </div>
+
+              <div>
+                <span class="symbol">p</span>
+
+                <span data-i18n="symbolP"> Promotion probability at each stage </span>
+              </div>
+
+              <div>
+                <span class="symbol">k</span>
+
+                <span data-i18n="symbolK"> Number of promotion stages </span>
+              </div>
+
+              <div>
+                <span class="symbol"> N<sub>k</sub> </span>
+
+                <span data-i18n="symbolNk"> Expected headcount reaching stage k </span>
+              </div>
+            </div>
+
+            <div class="reading-note">
+              <strong data-i18n="howToReadTitle"> How to read this </strong>
+
+              <p data-i18n="promotionReadingNote">
+                Both groups start from the same population. The model focuses on how repeated differences in promotion
+                probability change the relative size of the two groups over time.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive controls -->
+        <div class="controls">
+          <label
+            class="control-label"
+            for="probA">
+            <span data-i18n="groupAProbability"> Group A promotion probability </span>
+
+            <strong id="probAValue"> 50% </strong>
+          </label>
+
+          <div class="range-control">
+            <button
+              type="button"
+              class="step-button"
+              id="probAMinus">
+              −
+            </button>
+
+            <input
+              type="range"
+              id="probA"
+              min="20"
+              max="80"
+              step="1"
+              value="50" />
+
+            <button
+              type="button"
+              class="step-button"
+              id="probAPlus">
+              +
+            </button>
+          </div>
+
+          <label
+            class="control-label"
+            for="probB">
+            <span data-i18n="groupBProbability"> Group B promotion probability </span>
+
+            <strong id="probBValue"> 45% </strong>
+          </label>
+
+          <div class="range-control">
+            <button
+              type="button"
+              class="step-button"
+              id="probBMinus">
+              −
+            </button>
+
+            <input
+              type="range"
+              id="probB"
+              min="20"
+              max="80"
+              step="1"
+              value="45" />
+
+            <button
+              type="button"
+              class="step-button"
+              id="probBPlus">
+              +
+            </button>
+          </div>
+
+          <label
+            class="control-label"
+            for="stages">
+            <span data-i18n="stages"> Number of promotion stages </span>
+            <strong id="stagesValue"> 5 </strong>
+          </label>
+
+          <div class="range-control">
+            <button
+              type="button"
+              class="step-button"
+              id="stagesMinus">
+              −
+            </button>
+
+            <input
+              type="range"
+              id="stages"
+              min="1"
+              max="8"
+              step="1"
+              value="5" />
+
+            <button
+              type="button"
+              class="step-button"
+              id="stagesPlus">
+              +
+            </button>
+          </div>
+
+          <div class="range-control">
+            <input
+              type="checkbox"
+              id="resCheck" />
+            <label
+              for="resCheck"
+              data-i18n="afterEqual"
+              >Compare the outcomes after equalizing opportunities</label
+            >
+          </div>
+          <div
+            id="comparisonStageControl"
+            style="display: none">
+            <label
+              for="kmkm"
+              data-i18n="equalizeAfterStage">
+              Equalize opportunities after completing stage
+            </label>
+
+            <p
+              id="comparisonNote"
+              data-i18n="comparisonNote"
+              style="display: none; font-size: 12px; color: #909399">
+              Equalizing opportunities at a later stage does not restore people who did not advance in earlier stages.
+              This scenario is a simplified model comparison, not a prediction of the effect of a real policy.
+            </p>
+            <br />
+            <input
+              style="width: 100%"
+              id="kmkm"
+              type="number"
+              min="0"
+              max="5"
+              step="1"
+              value="2" />
+          </div>
+          <div
+            id="comparisonResults"
+            class="comparison-results"
+            style="display: none">
+            <div class="result-grid">
+              <div class="result-card">
+                <span data-i18n="originalBFinal"> Original Group B </span>
+                <strong id="originalBFinalResult"> 0.00 </strong>
+              </div>
+              <div class="result-card">
+                <span data-i18n="adjustedBFinal"> Adjusted Group B </span>
+                <strong id="adjustedBFinalResult"> 0.00 </strong>
+              </div>
+            </div>
+            <p id="comparisonRatioSentence"></p>
+            <p
+              class="comparison-note"
+              style="font-size: 12px; color: #909399"
+              data-i18n="comparisonDisclaimer">
+              Changing later opportunities does not restore people who did not continue through earlier stages. This
+              scenario is not a prediction of real policy effects.
+            </p>
+          </div>
+        </div>
+
+        <!-- Current results -->
+        <div class="result-grid">
+          <div class="result-card">
+            <span data-i18n="groupA"> Group A </span>
+
+            <strong id="groupAResult"> 31.25 </strong>
+
+            <small data-i18n="peopleRemaining"> Expected headcount reaching this stage </small>
+          </div>
+
+          <div class="result-card">
+            <span data-i18n="groupB"> Group B </span>
+
+            <strong id="groupBResult"> 18.45 </strong>
+
+            <small data-i18n="peopleRemaining"> Expected headcount reaching this stage </small>
+          </div>
+        </div>
+
+        <!-- Dynamic chart -->
+        <div class="interactive-chart-section">
+          <div class="chart-header">
+            <h3 data-i18n="trendChartTitle">How the gap develops across stages</h3>
+
+            <p data-i18n="trendChartDescription">
+              Change the promotion probabilities above and compare how the two groups change across repeated stages. The
+              relative gap may widen even when the absolute difference in expected headcount does not.
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="promotionTrendChart"></canvas>
+            <p
+              id="chartError"
+              class="chart-error"
+              hidden
+              data-i18n="errorText">
+              Failed to load
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 Representation Ratio -->
+      <section class="model-section">
+        <div class="section-heading">
+          <span class="section-number">02</span>
+
+          <div>
+            <h2 data-i18n="ratioTitle">Representation Ratio</h2>
+
+            <p data-i18n="ratioDescription">
+              Repeated differences in promotion probability can produce a larger relative gap between the two groups
+              across stages.
+            </p>
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <div class="formula-block">
+            <span
+              class="formula-label"
+              data-i18n="modelFormulaTitle">
+              Mathematical model
+            </span>
+
+            <p class="formula ratio-formula">
+              R<sub>k</sub>
+              =
+
+              <span class="fraction">
+                <span class="numerator"> N<sub>B,k</sub> </span>
+
+                <span class="denominator"> N<sub>A,k</sub> </span>
+              </span>
+
+              =
+
+              <span class="big-bracket">(</span>
+
+              <span class="fraction">
+                <span class="numerator"> p<sub>B</sub> </span>
+
+                <span class="denominator"> p<sub>A</sub> </span>
+              </span>
+
+              <span class="big-bracket">)</span><sup>k</sup>
+            </p>
+          </div>
+
+          <div class="model-rationale">
+            <h3 data-i18n="modelRationaleTitle">Why this model?</h3>
+
+            <p data-i18n="ratioModelRationale">
+              Both groups follow the same promotion model: N(A,k) = N(0)p(A)^k and N(B,k) = N(0)p(B)^k. Dividing Group B
+              by Group A cancels the common starting population N(0), leaving R(k) = (p(B)/p(A))^k. The ratio therefore
+              isolates the cumulative effect of the difference in promotion probabilities.
+            </p>
+          </div>
+
+          <div class="model-note">
+            <h3 data-i18n="symbolsTitle">Symbols</h3>
+
+            <div class="symbol-list">
+              <div>
+                <span class="symbol"> N<sub>A,k</sub> </span>
+
+                <span data-i18n="symbolNA"> Group A population after k stages </span>
+              </div>
+
+              <div>
+                <span class="symbol"> N<sub>B,k</sub> </span>
+
+                <span data-i18n="symbolNB"> Group B population after k stages </span>
+              </div>
+
+              <div>
+                <span class="symbol"> p<sub>A</sub>, p<sub>B</sub> </span>
+
+                <span data-i18n="symbolPAB"> Promotion probabilities for the two groups </span>
+              </div>
+
+              <div>
+                <span class="symbol"> R<sub>k</sub> </span>
+
+                <span data-i18n="symbolRk"> Group B population relative to Group A after k stages </span>
+              </div>
+            </div>
+
+            <div class="reading-note">
+              <strong data-i18n="howToReadTitle"> How to read this </strong>
+
+              <p data-i18n="ratioReadingNote">
+                If <span class="math-inline">R<sub>k</sub> = 0.59</span>, this means that Group B's expected headcount
+                is 59.05% of Group A's expected headcount. It is calculated as Group B divided by Group A, not as Group
+                B's share of the combined total.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-card ratio-summary">
+          <span data-i18n="finalRatio"> Final representation ratio </span>
+
+          <strong id="ratioResult"> 59.05% </strong>
+
+          <p id="ratioSentence">For every 100 people in Group A, approximately 59 remain in Group B.</p>
+          <p id="dynamicResultSentence">
+            Group B's promotion probability is 5 percentage points lower than Group A's. After the selected stages,
+            Group B's expected population is 59.05% of Group A's.
+          </p>
+        </div>
+      </section>
+
+      <!-- 03 Salary Growth -->
+      <section class="model-section">
+        <div class="section-heading">
+          <span class="section-number">03</span>
+
+          <div>
+            <h2 data-i18n="salaryTitle">Salary Growth</h2>
+
+            <p data-i18n="salaryDescription">
+              This section uses illustrative currency values to show how access to higher career levels can correspond
+              to higher salary levels in the model.
+            </p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="control">
+            <label for="salary">
+              <span data-i18n="startingSalary"> Starting salary </span>
+
+              <strong id="salaryValue"> $40,000 </strong>
+            </label>
+
+            <input
+              type="range"
+              id="salary"
+              min="20000"
+              max="100000"
+              step="5000"
+              value="40000" />
+          </div>
+
+          <div class="control">
+            <label for="growth">
+              <span data-i18n="salaryIncrease"> Salary increase per promotion </span>
+
+              <strong id="growthValue"> 15% </strong>
+            </label>
+
+            <input
+              type="range"
+              id="growth"
+              min="0"
+              max="30"
+              step="1"
+              value="15" />
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <div class="formula-block">
+            <span
+              class="formula-label"
+              data-i18n="modelFormulaTitle">
+              Mathematical model
+            </span>
+
+            <p class="formula">S<sub>j</sub> = S<sub>0</sub>(1 + g)<sup>j</sup></p>
+          </div>
+
+          <div class="model-rationale">
+            <h3 data-i18n="modelRationaleTitle">Why this model?</h3>
+
+            <p data-i18n="salaryModelRationale">
+              The model assumes that each promotion increases salary by the same proportional rate g. Each promotion
+              therefore multiplies the previous salary by (1 + g), giving S(j+1) = (1 + g)S(j). After j promotions,
+              repeated multiplication gives S(j) = S(0)(1 + g)^j. This is a proportional-growth model rather than a
+              curve fitted to salary data.
+            </p>
+          </div>
+
+          <div class="model-note">
+            <h3 data-i18n="symbolsTitle">Symbols</h3>
+
+            <div class="symbol-list">
+              <div>
+                <span class="symbol"> S<sub>0</sub> </span>
+
+                <span data-i18n="symbolS0"> Starting salary </span>
+              </div>
+
+              <div>
+                <span class="symbol"> g </span>
+
+                <span data-i18n="symbolG"> Salary growth rate per promotion </span>
+              </div>
+
+              <div>
+                <span class="symbol"> j </span>
+
+                <span data-i18n="symbolJ"> Number of promotions </span>
+              </div>
+
+              <div>
+                <span class="symbol"> S<sub>j</sub> </span>
+
+                <span data-i18n="symbolSj"> Salary after j promotions </span>
+              </div>
+            </div>
+
+            <div class="reading-note">
+              <strong data-i18n="howToReadTitle"> How to read this </strong>
+
+              <p data-i18n="salaryReadingNote">
+                The currency values in this section are illustrative model values rather than annual or cumulative
+                income. The model does not assume unequal pay for the same role. It shows how differences in access to
+                promotion can affect access to higher salary levels.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="salary-table-wrapper">
+          <div
+            class="salary-table"
+            id="salaryTable"></div>
+        </div>
+
+        <div
+          class="highlight-card salary-summary"
+          data-i18n="tableTip">
+          The salary is the same at the same level, but the expected number of people who can reach that level may
+          differ. Each row represents the same group of people at different stages, so the numbers should not be added
+          together.
+        </div>
+
+        <div class="highlight-card salary-summary">
+          <span data-i18n="salarySummaryTitle"> Final salary after selected promotions </span>
+
+          <strong id="salarySummaryResult"> $80,454 </strong>
+
+          <p id="salarySummarySentence">Starting from $40,000, salary grows to $80,454 after 5 promotions.</p>
+        </div>
+      </section>
+
+      <!-- Model Assumptions -->
+      <section class="assumptions-section">
+        <p
+          class="eyebrow"
+          data-i18n="modelAssumptionsEyebrow">
+          MODEL ASSUMPTIONS
+        </p>
+
+        <h2 data-i18n="modelAssumptionsTitle">What does this simplified model assume?</h2>
+
+        <div class="assumptions-list">
+          <p data-i18n="modelAssumptionOne">
+            Both groups begin with the same normalized starting population of 1,000 people. This value is used for
+            illustration and does not represent the size of a real organization.
+          </p>
+
+          <p data-i18n="modelAssumptionTwo">
+            ach group is assigned a constant promotion probability across all stages. The default probabilities are
+            illustrative values rather than estimates from a specific organization or population. In real workplaces,
+            promotion rates may vary across job levels and career stages.
+          </p>
+
+          <p data-i18n="modelAssumptionThree">
+            Population values represent expected outcomes under the model rather than predictions of the exact number of
+            people promoted in a real workforce.
+          </p>
+
+          <p data-i18n="modelAssumptionFour">
+            The salary model assumes the same proportional salary increase after each promotion. It illustrates access
+            to higher salary levels rather than unequal pay for the same role.
+          </p>
+
+          <p data-i18n="modelAssumptionFive">
+            The model does not include competition for a fixed number of promotion positions, new entrants, or repeated
+            attempts to gain promotion.
+          </p>
+
+          <p data-i18n="modelAssumptionSix">
+            Not advancing to the next stage in this model does not mean that a person is fired or leaves the
+            organization. It only means that they do not move to the next modeled career stage.
+          </p>
+        </div>
+      </section>
+
+      <!-- 04 Why This Matters -->
+      <section class="why-section">
+        <div class="section-heading">
+          <span class="section-number">04</span>
+
+          <div>
+            <h2 data-i18n="whyTitle">Why This Matters</h2>
+
+            <p>
+              <!-- intentionally left without extra heading text -->
+            </p>
+          </div>
+        </div>
+
+        <p data-i18n="whyParagraphOne">
+          Gender inequality does not always emerge from one dramatic act of discrimination. Small differences in access
+          to opportunities can accumulate across multiple stages of a career.
+        </p>
+
+        <p data-i18n="whyParagraphTwo">
+          This idea is sometimes described as cumulative disadvantage: repeated small differences can eventually produce
+          substantial differences in representation and income.
+        </p>
+
+        <div class="action-list">
+          <div>
+            <strong data-i18n="actionOneTitle"> Transparent criteria </strong>
+
+            <p data-i18n="actionOneText">Make promotion standards clear and consistent.</p>
+          </div>
+
+          <div>
+            <strong data-i18n="actionTwoTitle"> Monitor opportunities </strong>
+
+            <p data-i18n="actionTwoText">Examine whether access to career opportunities is distributed fairly.</p>
+          </div>
+
+          <div>
+            <strong data-i18n="actionThreeTitle"> Act early </strong>
+
+            <p data-i18n="actionThreeText">Address small differences before they compound over time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- References -->
+      <section class="references-section">
+        <p
+          class="eyebrow"
+          data-i18n="referencesEyebrow">
+          REFERENCES
+        </p>
+
+        <h2 data-i18n="referencesTitle">Research behind the model</h2>
+
+        <p data-i18n="referencesIntro">
+          The model is illustrative, but its structure is motivated by research on cumulative disadvantage, promotion
+          inequality, and career progression.
+        </p>
+
+        <div class="references-list">
+          <a
+            href="https://doi.org/10.1111/j.1468-232X.2007.00479.x"
+            target="_blank">
+            Blau, F. D., &amp; DeVaro, J. (2007). New evidence on gender differences in promotion rates: An empirical
+            analysis of a sample of new hires.
+            <em>Industrial Relations: A Journal of Economy and Society, 46</em>(3), 511–550.
+            https://doi.org/10.1111/j.1468-232X.2007.00479.x
+          </a>
+          <p></p>
+          <a
+            href="https://doi.org/10.1016/j.hrmr.2023.100968"
+            target="_blank">
+            Son Hing, L. S., Sakr, N., Sorenson, J. B., Stamarski, C. S., Caniera, K., &amp; Colaco, C. (2023). Gender
+            inequities in the workplace: A holistic review of organizational processes and practices.
+            <em>Human Resource Management Review, 33</em>(3), 100968. https://doi.org/10.1016/j.hrmr.2023.100968
+          </a>
+          <p></p>
+          <a
+            href="https://doi.org/10.1016/j.jcorpfin.2024.102680"
+            target="_blank">
+            Xu, J. (2024). The gender gap in executive promotions.
+            <em>Journal of Corporate Finance, 89</em>, 102680. https://doi.org/10.1016/j.jcorpfin.2024.102680
+          </a>
+        </div>
+      </section>
+
+      <section class="disclaimer">
+        <p data-i18n="disclaimer">
+          This is a simplified hypothetical model designed to demonstrate cumulative effects. It does not represent data
+          from any specific company or population.
+        </p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
